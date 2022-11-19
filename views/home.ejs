@@ -1,0 +1,113 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIPPOPSTOCK</title>
+
+    <link rel="icon" href="./imgs/logotitle.png" type="image/icon type">
+    <link rel="stylesheet" href="#" type="text/html" >
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+    
+<body>
+  <div class="acc" id="Avatar2">
+              
+  </div>
+    <div class="homepagecontainer">
+    <!-- <nav-main> -->
+        <div class="nav-container">
+            <a href="/">
+                <img src="./imgs/shippoplogo.png" class="logonav">
+            </a>  
+            <H1 class="title-stockmain"><sub>STOCK</sub></H1> 
+            <div class="acc" id="Avatar">
+              
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              </button>
+              <ul class="dropdown-menu text-center" style="background: rgb(255, 255, 255); border: 1.5px solid black; cursor: pointer;">
+                <li><a  class="dropdown-item" style="font-size:20px" ><%= name %> </a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="logout" style="color: red;">Logout</a></li>
+              </ul>
+            </div>
+        </div>
+ <!-- </nav-main> -->
+    
+<div class="containerhomepage">
+    <div class="sidebar2">
+      <h4></h4>
+      <button onclick="document.location='index'"  class="menu-bar"  >
+         SHIPPPOP
+      </button>
+      <p></p>
+      <button onclick="document.location='indexshipsabuy'" class="menu-bar6"  >
+        SHIPSABUY
+      </button>
+      <p></p>
+      <button onclick="document.location='indexflash'" class="menu-bar7"  >
+        FLASH
+      </button>
+      <p></p>
+      <button onclick="document.location='indexbitkub'" class="menu-bar8"  >
+        BITKUB
+      </button>
+      <p></p>
+      <button onclick="document.location='Requisition'" class="menu-bar9"  >
+        REQUISITION
+      </button>
+    </div>  
+</div>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+  var data;
+  var dataname;
+  
+  $(document).ready(() =>{
+          renderImg()
+          renderName()
+          
+        })
+
+  //get img
+  function renderImg() {
+            $.ajax({
+                  method: 'get',
+                  url:'http://localhost:3000/getImg',
+                  success: (response) => {
+                      
+                      console.log('Render Get Product !', response)
+                      if(response.resCode == 200) {
+                          data = response.Result;
+                          if(data.length > 0) {
+                            var html = '';
+                            for (let i = 0; i < data.length; i++) {
+                              html += `
+                              <img class="image" src="${data[i].img}" alt="">
+                              
+                              `;
+                            }   
+                            $("#Avatar").html(html)                                          
+                        }
+                      }
+                  }, error:(err) => {
+                      console.log('bad', err)
+                  }
+              }) 
+          }
+
+          
+</script>
