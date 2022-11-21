@@ -86,7 +86,7 @@
           </div>
           <div class="container5">
             <h5 style="text-align: center; margin-top: 5px;">BITKUB</h5>
-            <div class="productcontainer2">
+            <div class="productcontainer3">
               <table class="table">
                 <thead>
                   <tr>
@@ -117,6 +117,11 @@
                   <th scope="col">จำนวน</th>
                   <th scope="col">ผู้เบิก</th>
                   <th scope="col">คำสั่ง</th>
+                  <td>
+                    <select  id="selectshirts" class="form-select" aria-label="Default select example">
+                      <option value="" disabled selected>เลือกเสื้อ</option>
+                    </select>
+                  </td>
                 </tr>
               </thead>
               <tbody id="cbody">
@@ -127,26 +132,6 @@
           </table> 
         </div>
       </div>
-
-        <!-- <div class="container6">
-          <h5 style="text-align:center; margin-top: 10px;">รายการเบิกอนุมัติแล้ว</h5>
-          <div class="productcontainer2">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Product Name</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Quantity</th>
-                </tr>
-              </thead>
-              <tbody id="cbody">
-                <tbody>
-                  
-                </tbody>  
-              </tbody>
-            </table> 
-        </div>
-        </div> -->
  
       
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
@@ -154,7 +139,10 @@
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
 
+      var dataReq;
       var dataImg;
+
+      let res = {};
 
       render()
       render2()
@@ -250,6 +238,7 @@
                 }
             }) 
         }
+
       //get bitkub
       function render2() {
           $.ajax({
@@ -293,18 +282,25 @@
                     
                     console.log('Render requisition !', response)
                     if(response.resCode == 200) {
-                        data = response.Result;
-                        if(data.length > 0) {
+                        dataReq = response.Result;
+                        if(dataReq.length > 0) {
                           var html = '';
-                          for (let i = 0; i < data.length; i++) {
+                          for (let i = 0; i < dataReq.length; i++) {
                             html += `
                               <tr>
                                 <th scope="row">${i+1}</th>
-                                <td>${data[i].productnames}</td>
-                                <td>${data[i].detail} </td> 
-                                <td>${data[i].total} ชิ้น</td> 
-                                <td>${data[i].acc}</td> 
-                                <td><button onclick="confirmReq(${data[i].id}, ${i}, '${data[i].name}')" class="confirmReq" type="button">ยืนยัน</button></td> 
+                                <td>${dataReq[i].productnames}</td>
+                                <td>${dataReq[i].detail} </td> 
+                                <td>${dataReq[i].total} ชิ้น</td> 
+                                <td>${dataReq[i].acc}</td> 
+                                <td>
+                                <select  id="statusSelect">
+                                  <option value="" >Pending</option>
+                                  <option value="1" >Accept</option>
+                                  <option value="2" >Cancel</option>
+                                </select>
+                                </td>
+                                <!--<td><button onclick="savereqreport(${dataReq[i].id}, ${i}, '${dataReq[i].name}')" class="confirmReq" type="button">ยืนยัน</button></td> --!>
                                 </td>
                               </tr>
                             `;
@@ -338,8 +334,7 @@
                   }, success: (response) => {
                     console.log('good', response)
                     if(response.resCode == 200) {
-                      // Swal.fire('Changes are saved', '', 'success')
-                      
+                      // Swal.fire('Changes are saved', '', 'success')                     
                     }
                     render();
                     render2()
@@ -353,9 +348,61 @@
               }
           })
         }
-
         
 
+        //shirts
+        const shirts = [{id: 27, name: 'เสื้อ SHIPPOP S'},
+        {id: 28, name: 'เสื้อ SHIPPOP M'},
+        {id: 29, name: 'เสื้อ SHIPPOP L'},
+        {id: 30, name: 'เสื้อ SHIPPOP XL'},
+        {id: 31, name: 'เสื้อ SHIPPOP XXL'},
+        {id: 32, name: 'เสื้อ SHIPPOP 3XL'}]
+
+
+        //shirt no1
+        shirts.forEach((shirts) => {
+          let x = document.createElement("option");
+          x.value = shirts.id;
+          x.text = shirts.name;
+          selectshirts.append(x.cloneNode(true));
+          
+        });
+
+        //select Set 3000
+        selectshirts.onchange = function(){
+             res = {
+            res1:parseInt(selectshirts.value),
+
+          }
+          console.log('res1',res);
+          }
+      //   //save reqreport
+      // function savereqreport(index) {
+      //   console.log('dataReq',dataReq)
+      //     $.ajax({
+      //       method: 'post',
+      //       url:'http://localhost:3000/api/createreqreport',
+      //       data: {
+      //         productnames: (dataReq[index].productnames),
+      //         total: (dataReq[index].total),
+      //         detail: (dataReq[index].detail),
+      //         acc: (dataReq[index].acc),
+      //       }, success: (response) => {
+      //           console.log('good', response)
+      //           if(response.resCode == 200) {
+      //             Swal.fire({
+      //               icon: 'success',
+      //               title:'Complete'
+      //             })
+      //             render();
+      //             render2()
+      //             render3()
+      //           }
+      //       }, error: (err) => {
+      //           console.log('bad', err)
+      //       }
+      //     })
+      //   }
 
 
 

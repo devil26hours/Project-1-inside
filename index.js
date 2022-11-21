@@ -747,6 +747,57 @@ app.post('/api/createrequisition', (req, res)=>{
         })
     }
 })
+//create reqreport
+app.post('/api/createreqreport', (req, res)=>{
+    var productnames = _.get(req, ['body', 'productnames']);
+    var total = _.get(req, ['body', 'total']);
+    var detail = _.get(req, ['body', 'detail']);
+    var acc = _.get(req, ['body', 'acc']);
+
+    console.log('productnames', productnames)
+    console.log('total', total)
+    console.log('detail', detail)
+    console.log('acc', acc)
+
+    try {
+        if(productnames && total && detail && acc){
+            connection.query('insert into reqreport (productnames, total, detail, acc) values (?,?,?,?)',
+            [ productnames,total,detail,acc],(err, resp, field)=>{
+                if(resp) {
+                    return res.status(200).json({
+                        resCode: 200,
+                        ResMessag: 'success'
+                        
+                    }) 
+                }
+                else{
+                    console.log('ERR 2! : bad sql ')
+                    return res.status(200).json({
+                        resCode: 400,
+                        ResMessag: 'bad: bad sql ',
+                        Log: 2
+                    }) 
+                }
+            })
+        }
+        else{
+            console.log('ERR 1! : Invalid request')
+            return res.status(200).json({
+                resCode: 400,
+                ResMessag: 'bad: Invalid request',
+                Log: 1
+            })
+        }
+    }
+    catch(error) {
+        console.log('ERR 0! :', error)
+        return res.status(200).json({
+            resCode: 400,
+            ResMessag: 'bad',
+            Log: 0
+        })
+    }
+})
 
 //get shippop
 app.get('/api/getallstock',(req, res) => {
