@@ -1909,6 +1909,51 @@ app.put('/api/updatestockbitkub', (req, res)=>{
 
     }
 })
+//Update Requisition
+app.put('/api/updateRequisition', (req, res)=>{
+    var id = _.get(req, ['body', 'id']);
+    var status = _.get(req, ['body', 'status']);
+    try{
+        if(id && status) {
+            connection.query('update requisition set status = ? where id = ? ', [
+                status , parseInt(id) 
+            ], (err, data, fil)=>{
+                if(data) {
+                    return res.status(200).json({
+                        resCode: 200,
+                        ResMessag: 'success',
+                        
+                     })
+                }
+                else {
+                    console.log('ERR 2! : Update fail')
+                    return res.status(200).json({
+                        resCode: 400,
+                        ResMessag: 'bad: Update fail',
+                        Log: 2
+                     })
+                }
+            })
+        }
+        else{
+            console.log('ERR 1! : Invalid data')
+            return res.status(200).json({
+                resCode: 400,
+                ResMessag: 'bad: Invalid data',
+                Log: 1
+            }) 
+        }
+    }
+    catch(error) {
+        console.log('ERR 0! :', error)
+        return res.status(200).json({
+            resCode: 400,
+            ResMessag: 'bad',
+            Log: 0
+        })
+
+    }
+})
 
 //insert buy
 app.post('/api/insertstock', (req, res)=>{

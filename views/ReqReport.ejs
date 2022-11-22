@@ -49,6 +49,9 @@
                     <th>detail</th>
                     <th>total</th>
                     <th>acc</th>
+                    <th>status</th>
+                    <th>action</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -73,9 +76,9 @@
     var selldata;
 
     $(document).ready(function () {
-        $('#Table1').DataTable( {
+       var table = $('#Table1').DataTable( {
             ajax: {
-                url: 'http://localhost:3000/api/getreqreport',
+                url: 'http://localhost:3000/api/getrequisition',
                 dataSrc: 'Result'
             },
             columns: [
@@ -83,9 +86,17 @@
                 { data: 'detail' },
                 { data: 'total' },
                 { data: 'acc' },
+                { data: 'status' },
+                { defaultContent: '<button>Click!</button>' },
+                
+               
                 
             ]
         } );
+                 $('#example tbody').on('click', 'button', function () {
+                var data = table.row($(this).status('tr')).data();
+                alert(data[0] + "'s salary is: " + data[5]);
+                });
 
         renderImg()
     });
@@ -117,6 +128,32 @@
               }) 
           }
 
+          //savestatus
+        function saveStatus(pid) {
+            console.log(pid, index, status)
+          $.ajax({
+            method: 'put',
+            url: 'http://localhost:3000/api/updateRequisition',
+            data:{
+              id: parseInt(pid),
+              status: "Accept"
+            }, success: (response) => {
+              console.log('good', response)
+              if(response.resCode == 200) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Update successfuly'
+                })
+                $("#closeeditmodal").trigger('click')
+                render();
+                  render2()
+                  render3()
+              }
+            }, error: (err) => {
+              console.log('bad',err)
+            }
+          })
+        }
 
 
 </script>

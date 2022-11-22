@@ -46,7 +46,7 @@
 
         <div class="sidebar">
           <button class="menu-bar5" onclick="document.location='/'"><i class="fa-solid fa-backward"></i> HOMEPAGE </button> 
-          <h4>MENU</h4>
+          <h4><b>MENU</b></h4>
           <button onclick="buyproduct()"  class="menu-bar3"  >
             <i class="fa-solid fa-cart-shopping"></i> BUY
           </button>
@@ -57,43 +57,59 @@
             <i class="fa-brands fa-dropbox"></i> ADD NEW PRODUCT
           </button>
           <p>
-          <h4>POP SET</h4>
+          <h4><b>POP SET</b></h4>
           <button onclick="reset_ddl1()"  class="menu-bar" data-bs-toggle="modal" data-bs-target="#modalSet">
-            <i class="fa-solid fa-boxes-stacked"></i> SET POP 3000
+            <i class="fa-solid fa-boxes-stacked"></i> POP 3,000
           </button>
           <button onclick="reset_ddl1()" class="menu-bar" data-bs-toggle="modal" data-bs-target="#modalSet2">
-            <i class="fa-solid fa-boxes-stacked"></i> SET POP PLUS
+            <i class="fa-solid fa-boxes-stacked"></i> POP 15,000
           </button>
           <button onclick="reset_ddl1()" class="menu-bar" data-bs-toggle="modal" data-bs-target="#modalSet3">
-            <i class="fa-solid fa-boxes-stacked"></i> SET POP SHOP
+            <i class="fa-solid fa-boxes-stacked"></i> POP 89,000
           </button>
           <td>
             <p>
-            <h4><i class="fa-solid fa-exclamation"></i> Receipt & Info</h4>
+            <h4><b><i class="fa-solid fa-exclamation"></i>Receipt & Info</b></h4>
             <input  onfocus="this.value=''" class="info" id="invoid" type="text" style="text-align: center;" placeholder="กรอกข้อมูลอ้างอิง">
         </div>
- 
-      <div class="productcontainer"> 
-        <table class="table">
+        
+        <div class="productcontainerHead">
+          <table class="tableHead" >
             <thead>
               <tr>
-                <th scope="col">ID</th>
+                <h5><b>ID &nbsp;&nbsp; PRODUCT  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp IMAGE &nbsp;&nbsp;&nbsp;&nbsp; TOTAL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  COUNT</b></h5>
+                <!-- <th scope="col">ID</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Image</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Count</th>
+                <th scope="col">Count</th> -->
               </tr>
             </thead>
-            <tbody id="tbody">
-              <tbody>
-                
-              </tbody>  
-            </tbody>
-        </table>      
-    </div>
+          </table> 
+          <div class="productcontainer"> 
+            <table class="table">
+              <!-- <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Count</th>
+                </tr>
+              </thead> -->
+                <tbody id="tbody">
+                  <tbody>
+                    
+                  </tbody>  
+                </tbody>
+            </table>      
+          </div>
+        </div>
+
+        
 
         <div class="container2">
-            <h4>REPORT & HISTORY</h4>
+            <h4><b>REPORT & HISTORY</b></h4>
              
             <button class="menu-bar" onclick="document.location='HistoryBuyPage'"><i class="fa-solid fa-clock-rotate-left"></i> Buy </button> 
             <button class="menu-bar" onclick="document.location='HistorySellPage'"><i class="fa-solid fa-clock-rotate-left"></i> Sell </button>
@@ -115,19 +131,45 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <div class="detailPop">
+              <div class="detailPop-main">
+              <p><b style="text-align: center;">&nbsp;&nbsp;รายละเอียด</b>
+                <br>
+                เครื่องปริ้น POP PRINT 1 เครื่อง
+                <br>
+                เครื่องชั่งน้ำหนัก 30kg 1 เครื่อง
+                <br>
+                สายวัด 1 อัน
+                <br>
+                กล่อง A 5 กล่อง
+                <br>
+                กล่อง C 5 กล่อง
+                <br>
+                ซองขนาด B 10 ซอง
+                <br>
+                กระดาษ (POP ปริ้น) 1 ม้วน
+                <br>
+                โปสเตอร์ 7 แผ่น 
+                <br>
+                เทปกาว ขนาด 1.8 นิ้ว 2 ม้วน
+                <br>
+                ไวนิล (เลือกขนาด) 1 ชิ้น
+                <br>
+              </p>
+            </div>
+            </div>
             <select  id="selectshirts" class="form-select" aria-label="Default select example">
-              <option value="" disabled selected>เลือกเสื้อ</option>
+              <option value="">เลือกเสื้อ</option>
             </select>   
             <p></p>
-            <select  id="selectshirts2" class="form-select" aria-label="Default select example">
+            <select style="display: none" id="selectshirts2" class="form-select" aria-label="Default select example">
               <option value="">เลือกเสื้อ</option>
             </select>  
             <p></p>
-            <select  id="selectshirts3" class="form-select" aria-label="Default select example">
+            <select style="display: none" id="selectshirts3" class="form-select " aria-label="Default select example">
               <option value="">เลือกเสื้อ</option >
             </select>  
             <p></p>
-            <br>
             <select  id="selectvinil" class="form-select" aria-label="Default select example">
               <option value="">เลือกไวนิล</option>
             </select>  
