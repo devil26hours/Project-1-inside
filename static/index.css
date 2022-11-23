@@ -16,6 +16,11 @@ nav {
     width: 17vw;
     object-fit: contain;
 }
+.logonav-main {
+    width: 25vw;
+    object-fit: contain;
+}
+
 
 .modal-header{
     background: linear-gradient(125deg, #1be6c4, #103c9c);
@@ -239,8 +244,8 @@ nav {
     transition: 0.3s;
 }
 .menu-bar5 {
-    color: white;
-    background: #060010;
+    color: rgb(2, 2, 2);
+    background: #777777;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
@@ -249,7 +254,7 @@ nav {
     
 }
 .menu-bar5:hover {
-    background: linear-gradient(125deg, #f4f4f4, #1e1e1e);
+    background: #060010;
     color: white;
     transition: 0.3s;
 }
@@ -318,14 +323,14 @@ nav {
     transition: 0.3s;
 }
 .info {
-    padding: 10px;
+    padding: 5px;
     border: 1px solid transparent;
     width: 100%;
     outline: none;
     border-radius: 10px;
     background: white;
     transition: .5s;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     font-size: 1vw;
     border: 1px solid black;
 }
@@ -662,14 +667,23 @@ History buy
 .detailPop{
     
     /* background-color: #10fa7d; */
-    /* border: solid 1px rgb(146, 142, 142); */
+    border: solid 1px rgb(208, 207, 207);
     border-radius: 20px;
     margin-bottom: 0.5vw;
 }
 .detailPop-main{
+    
     text-align: center;
     /* background-color: #fa2b10; */
     /* border: solid 1px black; */
     border-radius: 20px;
+}
+.detailPop-main-in{
+    height: 20vw;
+    overflow: scroll;
+    overflow-x: hidden;
+    text-align: left;
+    margin-left: 1vw;
+    
 }
 

@@ -1962,6 +1962,7 @@ app.post('/api/insertstock', (req, res)=>{
     var stockname = _.get(req, ['body', 'stockname']);
     var quantity = _.get(req, ['body', 'quantity']);
     var invoid_no = _.get(req, ['body', 'invoid_no']);
+    var customer_name = _.get(req, ['body', 'customer_name']);
     var acc = [req.session.user_name];
 
 
@@ -1969,12 +1970,13 @@ app.post('/api/insertstock', (req, res)=>{
     console.log('stockname', stockname)
     console.log('quantity', quantity)
     console.log('invoid_no', invoid_no)
+    console.log('customer_name', customer_name)
     console.log('acc', acc)
 
     try{
         if( Date &&  stockname && quantity ) {
-            connection.query('insert into tbl_buy_history (Date, stockname, quantity, invoid_no, acc) values (?,?,?,?,?) ', [
-                Date, stockname, quantity, invoid_no,acc
+            connection.query('insert into tbl_buy_history (Date, stockname, quantity, invoid_no,customer_name, acc) values (?,?,?,?,?,?) ', [
+                Date, stockname, quantity, invoid_no,customer_name,acc
             ], (err, data, fil)=>{
                 if(data) {
                     return res.status(200).json({
@@ -2187,6 +2189,7 @@ app.post('/api/insertsellstock', (req, res)=>{
     var stockname = _.get(req, ['body', 'stockname']);
     var quantity = _.get(req, ['body', 'quantity']);
     var invoid_no = _.get(req, ['body', 'invoid_no']);
+    var customer_name = _.get(req, ['body', 'customer_name']);
     var acc = [req.session.user_name];
 
     console.log('Date', Date)
@@ -2196,8 +2199,8 @@ app.post('/api/insertsellstock', (req, res)=>{
 
     try{
         if( Date &&  stockname && quantity ) {
-            connection.query('insert into tbl_sell_history (Date, stockname, quantity, invoid_no, acc) values (?,?,?,?,?) ', [
-                Date, stockname, quantity, invoid_no,acc
+            connection.query('insert into tbl_sell_history (Date, stockname, quantity, invoid_no,customer_name, acc) values (?,?,?,?,?,?) ', [
+                Date, stockname, quantity, invoid_no,customer_name,acc
             ], (err, data, fil)=>{
                 if(data) {
                     return res.status(200).json({
