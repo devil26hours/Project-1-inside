@@ -2246,6 +2246,54 @@ app.put('/api/updatestockshipsabuy', (req, res)=>{
 
     }
 })
+//Update edit shipsabuy
+app.put('/api/updatestockshipsabuyedit', (req, res)=>{
+    var id = _.get(req, ['body', 'id']);
+    var name = _.get(req, ['body', 'name']);
+    var quantity = _.get(req, ['body', 'quantity']);
+    var img = _.get(req, ['body', 'img']);
+
+    try{
+        if(id && name && quantity) {
+            connection.query('update tbl_stock_shipsabuy set name = ?, quantity = ?, img = ? where id = ? ', [
+                name, quantity,img, parseInt(id) 
+            ], (err, data, fil)=>{
+                if(data) {
+                    return res.status(200).json({
+                        resCode: 200,
+                        ResMessag: 'success',
+                        
+                     })
+                }
+                else {
+                    console.log('ERR 2! : Update fail')
+                    return res.status(200).json({
+                        resCode: 400,
+                        ResMessag: 'bad: Update fail',
+                        Log: 2
+                     })
+                }
+            })
+        }
+        else{
+            console.log('ERR 1! : Invalid data')
+            return res.status(200).json({
+                resCode: 400,
+                ResMessag: 'bad: Invalid data',
+                Log: 1
+            }) 
+        }
+    }
+    catch(error) {
+        console.log('ERR 0! :', error)
+        return res.status(200).json({
+            resCode: 400,
+            ResMessag: 'bad',
+            Log: 0
+        })
+
+    }
+})
 //Update flash
 app.put('/api/updatestockflash', (req, res)=>{
     var id = _.get(req, ['body', 'id']);
