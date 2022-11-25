@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash In History</title>
+    <title>HistoryBuyPagePoststation</title>
 
     <link rel="icon" href="./imgs/logotitle.png" type="image/icon type">
     
@@ -17,12 +17,12 @@
     
 <body>
 
-    <nav class="nav-3">
+    <nav class="nav-7">
         <div class="nav-container">
-            <a href="indexflash">
-                <img src="./imgs/logoflash 2.png" class="logonav">
+            <a href="indexpoststation">
+                <img src="./imgs/Poststation.png" class="logonav">
             </a>  
-            <H1 class="title-stockmain"><sub>In Stock</sub></H1>
+            <H1 class="title-stockmain"><sub>In</sub></H1>
         </div>
     </nav>
     
@@ -31,9 +31,10 @@
             <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Name</th>
+                    <th>Product</th>
                     <th>Total</th>
-                    <th>info</th>
+                    <th>Info</th>
+                    <th>Customer</th>
                     <th>User</th>
                 </tr>
             </thead>
@@ -61,7 +62,7 @@
     $(document).ready(function () {
         $('#Table1').DataTable( {
             ajax: {
-                url: 'http://localhost:3000/api/getbuyhistoryflash',
+                url: 'http://localhost:3000/api/getbuyhistorypoststation',
                 dataSrc: 'Result'
             },
             columns: [
@@ -69,6 +70,7 @@
                 { data: 'stockname' },
                 { data: 'quantity' },
                 { data: 'invoid_no' },
+                { data: 'customer_name' },
                 { data: 'acc' }
             ]
         } );
