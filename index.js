@@ -2245,7 +2245,7 @@ app.put('/api/updatestockshipsabuy', (req, res)=>{
         })
 
     }
-})
+}) 
 //Update edit shipsabuy
 app.put('/api/updatestockshipsabuyedit', (req, res)=>{
     var id = _.get(req, ['body', 'id']);
