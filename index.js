@@ -778,6 +778,7 @@ app.post('/api/createstockbitkub', (req, res)=>{
 
 //create requisition
 app.post('/api/createrequisition', (req, res)=>{
+    var Date = _.get(req, ['body', 'Date']);
     var productnames = _.get(req, ['body', 'productnames']);
     var total = _.get(req, ['body', 'total']);
     var detail = _.get(req, ['body', 'detail']);
@@ -787,11 +788,12 @@ app.post('/api/createrequisition', (req, res)=>{
     console.log('total', total)
     console.log('detail', detail)
     console.log('acc', acc)
+    console.log('Date', Date)
 
     try {
-        if(productnames && total && detail){
-            connection.query('insert into requisition (productnames, total, detail, acc) values (?,?,?,?)',
-            [ productnames,total,detail,acc],(err, resp, field)=>{
+        if(Date && productnames && total && detail){
+            connection.query('insert into requisition (Date,productnames, total, detail, acc) values (?,?,?,?,?)',
+            [ Date,productnames,total,detail,acc],(err, resp, field)=>{
                 if(resp) {
                     return res.status(200).json({
                         resCode: 200,

@@ -48,7 +48,7 @@
 
   <div class="container3">
     <div class="container3-bar">
-      <h4>Form</h4>
+      <h4>แบบฟอร์มเบิกของ</h4>
       <p>
       <div class="menubar1">
       <input class="menu-barform-1" onfocus="this.value=''" type="text" id="productnames" style="text-align: center;" placeholder="กรอกชื่อสินค้า">
@@ -62,7 +62,29 @@
       <button onclick="document.getElementById('total').value = '',document.getElementById('detail').value = '',document.getElementById('productnames').value = ''" class="menu-barform-5">รีเซ็ต</button>
       </div>
     </div>
+    <div class="table-req">
+      <h5>รายการเบิก</h5>
+      <div class="table-info">
+        <table id="Table2" class="display" style="width:100%">
+          <thead>
+              <tr>
+                <th scope="col">วันที่/เวลา</th>
+                <th scope="col">สินค้า</th>
+                <th scope="col">รายละเอียด</th>
+                <th scope="col">จำนวน</th>
+                <th scope="col">ผู้เบิก</th>
+                <th scope="col">สถานะ</th>
+              </tr>
+          </thead>
+          <tbody>
+  
+          </tbody>
+      </table>
+      </div>
+    </div>
+     
   </div>
+  
   <div class="container1-5">
     <div class="container4">
       <h5 style="text-align: center; margin-top: 10px;">FLASH</h5>
@@ -126,7 +148,24 @@ var dataReq;
       render3()
 
       $(document).ready(() =>{
-          renderImg()       
+
+          renderImg()      
+
+          $('#Table2').DataTable( {
+            ajax: {
+                url: 'http://localhost:3000/api/getrequisition',
+                dataSrc: 'Result'
+            },
+            columns: [
+                { data: 'Date' },
+                { data: 'productnames' },
+                { data: 'total' },
+                { data: 'detail' },
+                { data: 'acc' },
+                { data: 'status' }
+            ]
+        } ); 
+
         })
 
       //get img
@@ -162,6 +201,7 @@ var dataReq;
             method: 'post',
             url:'http://localhost:3000/api/createrequisition',
             data: {
+              Date: getTime(),
               productnames: $("#productnames").val(),
               total: $("#total").val(),
               detail: $("#detail").val(),
@@ -173,8 +213,9 @@ var dataReq;
                     title:'Complete'
                   })
                   render();
-                  render2()
-                  render3()
+                  render2();
+                  render3();
+                  window.location.reload();
                 }
             }, error: (err) => {
                 console.log('bad', err)
@@ -271,16 +312,11 @@ var dataReq;
                                 <td>${dataReq[i].total} ชิ้น</td> 
                                 <td>${dataReq[i].acc}</td> 
                                 <td><p style="color:red">${dataReq[i].status}</p></td> 
-                                
-                                <!--<select id="mySelect" onchange="myFunction(${dataReq[i].id}, ${i}, '${dataReq[i].name}')">
-                                  <option value="">Pending</option>
-                                  <option value="Accept">Accept</option>
-                                  <option value="Cancel">Cancel</option>
-                                </select>--!>
                           
                                 <td>
                                   <button onclick="saveStatus(${dataReq[i].id}, ${i},'${dataReq[i].status}')" class="confirmReq" type="button">ยืนยัน</button>
                                   <button onclick="cancelStatus(${dataReq[i].id}, ${i},'${dataReq[i].status}')" class="confirmReq2" type="button">ยกเลิก</button>
+                                  
                                 </td>
                                 
                                 
@@ -396,7 +432,20 @@ var dataReq;
           })
         }
 
-
+        function getTime() {
+            const date = new Date();
+            return date.getFullYear()
+                    + '-' +
+                    date.getMonth()
+                    + '-' +
+                    date.getDate()
+                    + ' ' +
+                    date.getHours()
+                    + ':' +
+                    date.getMinutes()
+                    + ':' +
+                    date.getSeconds();
+          }
 
 
     

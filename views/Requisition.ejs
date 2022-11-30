@@ -47,63 +47,7 @@
         <!-- <input  onfocus="this.value=''" class="info" id="invoid" type="text" style="text-align: center;" placeholder="กรอกข้อมูลอ้างอิง">  -->
         </div>
 
-        <!-- <div class="container3">
-          <div class="container3-bar">
-            <h4>Form</h4>
-            <p>
-            <div class="menubar1">
-            <input class="menu-barform-1" onfocus="this.value=''" type="text" id="productnames" style="text-align: center;" placeholder="กรอกชื่อสินค้า">
-            <br>
-            <input class="menu-barform-4" onfocus="this.value=''" type="text" id="detail" style="text-align: center;" placeholder="กรอกรายละเอียด">
-            <br>
-            <input class="menu-barform-2" onfocus="this.value=''" type="text" id="total" style="text-align: center;" placeholder="จำนวน">
-            <br>
-            <button onclick="saverequisition()" class="menu-barform-3">ยืนยัน</button>
-            
-            <button onclick="document.getElementById('total').value = '',document.getElementById('detail').value = '',document.getElementById('productnames').value = ''" class="menu-barform-5">รีเซ็ต</button>
-            </div>
-          </div>
-        </div> -->
-        <!-- <div class="container1-5">
-          <div class="container4">
-            <h5 style="text-align: center; margin-top: 10px;">FLASH</h5>
-            <div class="productcontainer1 scrollbar-primary"> 
-              <table class="table">
-                  <thead>
-                    <tr> -->
-                      <!-- <th scope="col">Product Name</th>
-                      <th scope="col">Image</th>
-                      <th scope="col">Quantity</th> -->
-                    <!-- </tr>
-                  </thead>
-                  <tbody id="tbody">
-                    <tbody>
-                      
-                    </tbody>  
-                  </tbody>
-              </table>      
-           </div>
-          </div>
-          <div class="container5">
-            <h5 style="text-align: center; margin-top: 5px;">BITKUB</h5>
-            <div class="productcontainer3">
-              <table class="table">
-                <thead>
-                  <tr> -->
-                    <!-- <th scope="col">Product Name</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Quantity</th> -->
-                  <!-- </tr>
-                </thead>
-                <tbody id="bbody">
-                  <tbody>
-                    
-                  </tbody>  
-                </tbody>
-            </table> 
-            </div>
-          </div>
-        </div> -->
+        
 
         <div class="container6">
           <h5 style="text-align:center; margin-top: 10px;">PENDING APPROVAL</h5>
@@ -111,7 +55,7 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">ลำดับ</th>
+                  <th scope="col">วันที่/เวลา</th>
                   <th scope="col">สินค้า</th>
                   <th scope="col">รายละเอียด</th>
                   <th scope="col">จำนวน</th>
@@ -175,7 +119,7 @@
                   }
               }) 
           }
-
+          
       //save requisition
       function saverequisition() {
           $.ajax({
@@ -285,7 +229,8 @@
                           for (let i = 0; i < dataReq.length; i++) {
                             html += `
                               <tr>
-                                <th scope="row">${i+1}</th>
+                                
+                                <td>${dataReq[i].Date}</th>
                                 <td>${dataReq[i].productnames}</td>
                                 <td>${dataReq[i].detail} </td> 
                                 <td>${dataReq[i].total} ชิ้น</td> 
@@ -301,6 +246,7 @@
                                 <td>
                                   <button onclick="saveStatus(${dataReq[i].id}, ${i},'${dataReq[i].status}')" class="confirmReq" type="button">ยืนยัน</button>
                                   <button onclick="cancelStatus(${dataReq[i].id}, ${i},'${dataReq[i].status}')" class="confirmReq2" type="button">ยกเลิก</button>
+                                  <button onclick="deleteproduct(${dataReq[i].id}, ${i},'${dataReq[i].status}')" class="confirmReq3" type="button">ลบคำขอ</button>
                                 </td>
                                 
                                 
@@ -352,17 +298,7 @@
         }
         
 
-        // function myFunction() {
-        //   var x = document.getElementById('mySelect').value;
-        //   console.log("x",x)
-        //   document.getElementById("demo").innerHTML = "You selected: " + x;
-        // }
-       
-        // function editproduct(pid, index) {
-        //   $("#txteditmodalname").val(data[index].name);
-        //   $("#txteditmodalquantity").val(data[index].quantity);
-        //   productid = pid;
-        // }
+        
    
          //savestatus
         function saveStatus(pid, index, status) {
@@ -416,7 +352,44 @@
           })
         }
 
+         //delete
+         function deleteproduct(pid, index, name){
+          Swal.fire({
+              icon: "warning",
+              title: 'Are you sure to delete ?',
+              showConfirmButton: false,
+              showDenyButton: true,
+              showCancelButton: true,
+              confirmButtonText: 'Save',
+              denyButtonText: `Delete`,
+          }).then((result) => {
+              if (result.isDenied) {
+                $.ajax({
+                  method: 'delete',
+                  url: 'http://localhost:3000/api/deletestockrequisition',
+                  data: {
+                    id: pid
+                  }, success: (response) => {
+                    console.log('good', response)
+                    if(response.resCode == 200) {
+                      window.location.reload();
+                      render();
+                    }
+                  }, error: (err) =>{
+                    console.log('bad', err)
+                  }
+                })
+                
+              }
+          })
+        }
 
+        $(function(){
+            $('#Set1BodyT').change(function(){
+              var display =$("#Set1BodyT option:selected").text();
+              $('#textresulte').val(display);
+            })
+        })
 
     </script>
 </body>
