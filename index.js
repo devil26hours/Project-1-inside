@@ -834,7 +834,7 @@ app.post('/api/createreqreport', (req, res)=>{
     var productnames = _.get(req, ['body', 'productnames']);
     var total = _.get(req, ['body', 'total']);
     var detail = _.get(req, ['body', 'detail']);
-    var acc = _.get(req, ['body', 'acc']);
+    var acc = [req.session.user_name];
 
     console.log('productnames', productnames)
     console.log('total', total)
@@ -2394,8 +2394,10 @@ app.put('/api/updatestockbitkub', (req, res)=>{
 app.put('/api/updateRequisition', (req, res)=>{
     var id = _.get(req, ['body', 'id']);
     var status = _.get(req, ['body', 'status']);
+    var Level = [req.session.userLevel];
+    var need = 'Admin'
     try{
-        if(id && status) {
+        if(Level == need) {
             connection.query('update requisition set status = ? where id = ? ', [
                 status , parseInt(id) 
             ], (err, data, fil)=>{
