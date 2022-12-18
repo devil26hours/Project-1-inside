@@ -192,6 +192,15 @@ app.get('/rpapoststation', ifNotLoggedin, (req,res,next) => {
     });
     
 });
+app.get('/rparequisition', ifNotLoggedin, (req,res,next) => {
+    dbconnection.execute("SELECT `name` FROM `users` WHERE `id`=?",[req.session.userID])
+    .then(([rows]) => {
+        res.render('rparequisition',{
+            name:rows[0].name
+        });
+    });
+    
+});
 app.get('/Requisition', ifNotLoggedin, (req,res,next) => {
     dbconnection.execute("SELECT `name` FROM `users` WHERE `id`=?",[req.session.userID])
     .then(([rows]) => {
